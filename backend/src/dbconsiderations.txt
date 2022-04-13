@@ -1,0 +1,6 @@
+requirements:
+-scalability:
+  1. easily add more questions (more columns)
+  2. easily add more possible options 
+  3. is there a need for complex join queries? (no)
+  

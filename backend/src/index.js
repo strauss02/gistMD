@@ -1,4 +1,3 @@
-import cors from 'cors'
 import app from './app.js'
 import dotenv from 'dotenv'
 

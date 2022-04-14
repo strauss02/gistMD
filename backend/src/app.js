@@ -1,8 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import 'dotenv/config'
 
 import { errorLogger, errorResponder, failSafeHandler } from './middleware.js'
+import DB from './connectDB.js'
 
 import PatientRouter from './Routers/PatientsRouter.js'
 

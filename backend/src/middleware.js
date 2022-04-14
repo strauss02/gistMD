@@ -6,14 +6,13 @@ export function errorLogger(error, req, res, next) {
 
 export function errorResponder(error, req, res, next) {
   // responding to client
-  if (error.type == 'redirect') res.redirect('/error')
-  else if (error.type == 'time-out')
-    // arbitrary condition check
-    res.status(408).send(error)
-  else next(error) // forwarding exceptional case to fail-safe middleware
+  if (error instanceof APIError) {
+    res.status(err.code).json(err.message)
+    return
+  } else next(error) // forwarding exceptional case to fail-safe middleware
 }
 
 export function failSafeHandler(error, req, res, next) {
   // generic handler
-  res.status(500).send(error)
+  res.status(500).send('Something went wrong.')
 }

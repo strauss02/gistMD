@@ -1,25 +1,21 @@
+import { Container, Grid } from '@mui/material'
 import React from 'react'
-import './App.css'
 import PatientList from './Components/PatientList'
+import SideNavigation from './Components/SideNavigation'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <PatientList />
-      </header>
-    </div>
+    <Container>
+      <Grid container>
+        <Grid item xs={0} md={2}>
+          <SideNavigation />
+        </Grid>
+
+        <Grid item xs={12} md={10}>
+          <PatientList />
+        </Grid>
+      </Grid>
+    </Container>
   )
 }
 

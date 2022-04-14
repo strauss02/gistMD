@@ -3,6 +3,9 @@ import React from 'react'
 import PatientList from './Components/PatientList'
 import SideNavigation from './Components/SideNavigation'
 
+import { useQuery } from 'react-query'
+import { getPatients, Patient } from './lib/api'
+
 function App() {
   return (
     <Container>

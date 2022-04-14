@@ -8,6 +8,7 @@ content-type: application/json
 {
     "gender": "Female",
     "name": "Sandy Cheeks",
+    "language": "Hebrew",
     "age": "25",
     "procedure": "Arm Bandage"
 }

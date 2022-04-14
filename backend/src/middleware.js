@@ -6,8 +6,8 @@ export function errorLogger(error, req, res, next) {
 
 export function errorResponder(error, req, res, next) {
   // responding to client
-  if (error instanceof APIError) {
-    res.status(err.code).json(err.message)
+  if (error.name === 'ValidationError') {
+    res.status(400).json(error.message)
     return
   } else next(error) // forwarding exceptional case to fail-safe middleware
 }

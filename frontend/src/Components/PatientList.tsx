@@ -1,6 +1,7 @@
 import React from 'react'
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
+import PatientCard from './PatientCard'
 
 function PatientList() {
   return (
@@ -8,14 +9,10 @@ function PatientList() {
       sx={{
         display: 'flex',
         flexWrap: 'wrap',
-        '& > :not(style)': {
-          m: 1,
-          width: 128,
-          height: 128,
-        },
+        width: '100%',
       }}
     >
-      <Paper elevation={3} />
+      <PatientCard />
     </Box>
   )
 }

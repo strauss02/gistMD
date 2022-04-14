@@ -29,7 +29,11 @@ let patientSchema = new Schema(
     },
     gender: {
       type: String,
-      enum: ['Male', 'Female'],
+      enum: {
+        values: ['Male', 'Female'],
+        message:
+          '{VALUE} is not a recognised gender. Possible options are: Male, Female. Make sure first letter is uppercased.',
+      },
       required: true,
     },
   },

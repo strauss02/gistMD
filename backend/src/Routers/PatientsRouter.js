@@ -7,28 +7,23 @@ const router = express.Router()
 router.get('/', (req, res) => {
   // send all patients
   Patient.find({}, (err, patients) => {
-    res.send(patients)
+    if (err) {
+      next(err)
+    } else {
+      res.send(patients)
+    }
   })
 })
 
 router.post('/', (req, res, next) => {
-  // Create new patient
-  /*
-    patientName
-    patientGender
-    patientAge
-    patientLanguage
-    patientProcedure
-  */
-  console.log(req.body)
-  const { gender, name, language, age, procedure } = req.body
-  Patient.create(
-    { gender, name, language, age, procedure },
-    function (err, small) {
-      if (err) return next(err)
+  // req.body object is designed to fit exactly to Patient model creation scheme.
+  Patient.create(req.body, (err, patient) => {
+    if (err) {
+      next(err)
+    } else {
+      res.send(patient)
     }
-  )
-  res.send('wow')
+  })
 })
 
 export default router

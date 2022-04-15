@@ -5,15 +5,17 @@ import SideNavigation from './Components/SideNavigation'
 
 import { QueryClientProvider, QueryClient } from 'react-query'
 import NewPatientButton from './Components/NewPatientButton'
+import NewPatientModule from './Components/NewPatientModal'
 
 const queryClient = new QueryClient()
 
 function PatientApp() {
-  const [isModuleOpen, setModuleOpen] = useState(false)
+  const [isModalOpen, setModalOpen] = useState(false)
 
   return (
     <>
-      <NewPatientButton />
+      <NewPatientButton setModalOpen={setModalOpen} />
+      <NewPatientModule isModalOpen={isModalOpen} setModalOpen={setModalOpen} />
       <Container>
         <Grid container>
           <Grid item xs={0} md={2}>

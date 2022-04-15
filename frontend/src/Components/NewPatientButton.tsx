@@ -1,9 +1,14 @@
 import { Fab } from '@mui/material'
 import React from 'react'
 
-function NewPatientButton() {
+type Props = {
+  setModalOpen: Function
+}
+
+function NewPatientButton(props: Props) {
   return (
     <Fab
+      onClick={() => props.setModalOpen(true)}
       sx={{
         position: 'sticky',
         top: '89%',

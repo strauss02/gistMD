@@ -161,9 +161,9 @@ export const theme = createTheme({
       female: '#cf91c0',
     },
     primary: {
-      main: '#5048E5',
-      light: '#828DF8',
-      dark: '#3832A0',
+      main: '#da5349',
+      light: '#cc716b',
+      dark: '#a13a33',
       contrastText: '#FFFFFF',
     },
     secondary: {

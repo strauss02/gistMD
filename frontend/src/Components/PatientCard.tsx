@@ -18,7 +18,12 @@ type PatientCardProps = {
 
 function PatientCard({ patient }: PatientCardProps) {
   return (
-    <Card sx={{ margin: '0.7rem' }}>
+    <Card
+      sx={{
+        margin: '0.7rem',
+        borderRadius: '16px',
+      }}
+    >
       <CardContent>
         {/* Name and Avatar */}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>

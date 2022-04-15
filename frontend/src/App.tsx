@@ -1,24 +1,31 @@
 import { Container, Grid } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import PatientList from './Components/PatientList'
 import SideNavigation from './Components/SideNavigation'
 
 import { QueryClientProvider, QueryClient } from 'react-query'
+import NewPatientButton from './Components/NewPatientButton'
 
 const queryClient = new QueryClient()
 
 function PatientApp() {
+  const [isModuleOpen, setModuleOpen] = useState(false)
+
   return (
-    <Container>
-      <Grid container>
-        <Grid item xs={0} md={2}>
-          <SideNavigation />
+    <>
+      <NewPatientButton />
+      <Container>
+        <Grid container>
+          <Grid item xs={0} md={2}>
+            <SideNavigation />
+          </Grid>
+          <Grid item xs={12} md={10}>
+            <PatientList />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={10}>
-          <PatientList />
-        </Grid>
-      </Grid>
-    </Container>
+        {/* Floating Action Button */}
+      </Container>
+    </>
   )
 }
 

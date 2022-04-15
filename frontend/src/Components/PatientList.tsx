@@ -19,7 +19,7 @@ function PatientList() {
     >
       {patients &&
         patients.map((patient) => {
-          return <PatientCard patient={patient} />
+          return <PatientCard key={patient._id} patient={patient} />
         })}
     </Box>
   )

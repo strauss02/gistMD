@@ -22,14 +22,14 @@ function PatientCard({ patient }: PatientCardProps) {
       <CardContent>
         {/* Name and Avatar */}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar sx={{ marginRight: '0.8rem' }} />
+          <Avatar src={patient.imgSrc} sx={{ marginRight: '0.8rem' }} />
           <Typography variant="h5" component="div">
             {patient.name}
           </Typography>
         </Box>
         {/* Age and Gender */}
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography color="text.secondary">
+        <Box sx={{ display: 'flex', alignItems: 'center', m: '0.7rem 0' }}>
+          <Typography color="text.secondary" sx={{ mr: '0.4rem' }}>
             {` ${patient.age}, ${patient.gender}`}
           </Typography>
           {patient.gender === 'Male' ? (

@@ -6,6 +6,7 @@ export interface Patient {
   procedure: string
   language: string
   gender: 'Male' | 'Female'
+  imgSrc?: 'string'
 }
 
 export const getPatients = async (): Promise<Patient[]> =>

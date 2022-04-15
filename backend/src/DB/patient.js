@@ -36,6 +36,9 @@ let patientSchema = new Schema(
       },
       required: true,
     },
+    imgSrc: {
+      type: String,
+    },
   },
   { collection: 'Patients' }
 )

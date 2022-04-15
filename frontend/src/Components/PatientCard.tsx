@@ -6,25 +6,26 @@ import {
   Typography,
 } from '@mui/material'
 import React from 'react'
+import { Patient } from '../lib/api'
 
-function PatientCard() {
+type PatientCardProps = {
+  patient: Patient
+}
+
+function PatientCard({ patient }: PatientCardProps) {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Word of the Day
+          {patient.procedure}
         </Typography>
         <Typography variant="h5" component="div">
-          benevolent
+          {patient.name}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
+          {patient.language}
         </Typography>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
+        <Typography variant="body2">{patient.gender}</Typography>
       </CardContent>
       <CardActions>
         <Button size="small">Learn More</Button>

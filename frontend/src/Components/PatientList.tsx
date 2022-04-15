@@ -1,9 +1,13 @@
-import React from 'react'
-import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import PatientCard from './PatientCard'
 
+import { useQuery } from 'react-query'
+import { getPatients, Patient } from '../lib/api'
+
 function PatientList() {
+  const { data: patients } = useQuery<Patient[]>(['patients'], getPatients, {
+    initialData: [],
+  })
   return (
     <Box
       sx={{
@@ -12,7 +16,10 @@ function PatientList() {
         width: '100%',
       }}
     >
-      <PatientCard />
+      {patients &&
+        patients.map((patient) => {
+          return <PatientCard patient={patient} />
+        })}
     </Box>
   )
 }

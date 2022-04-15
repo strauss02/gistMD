@@ -12,6 +12,7 @@ function PatientList() {
     <Box
       sx={{
         display: 'flex',
+        flexDirection: 'column',
         flexWrap: 'wrap',
         width: '100%',
       }}

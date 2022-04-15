@@ -6,10 +6,10 @@ POST http://localhost:3001/patients
 content-type: application/json
 
 {
-    "gender": "Female",
-    "name": "Sandy Cheeks",
-    "language": "Hebrew",
-    "age": "25",
-    "procedure": "Arm Bandage"
+    "gender": "Male",
+    "name": "Eugene Krabs",
+    "language": "English",
+    "age": "64",
+    "procedure": "Cracked Shell Repairment"
 }
 

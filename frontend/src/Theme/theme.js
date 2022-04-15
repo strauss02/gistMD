@@ -156,6 +156,10 @@ export const theme = createTheme({
       paper: '#FAFCFC',
     },
     divider: '#E6E8F0',
+    gender: {
+      male: '#9291cf',
+      female: '#cf91c0',
+    },
     primary: {
       main: '#5048E5',
       light: '#828DF8',

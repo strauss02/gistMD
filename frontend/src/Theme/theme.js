@@ -131,6 +131,7 @@ export const theme = createTheme({
       },
     },
   },
+  direction: 'ltr',
   palette: {
     neutral: {
       100: '#F3F4F6',

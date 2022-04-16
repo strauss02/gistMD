@@ -10,6 +10,9 @@ export interface Patient {
   _id: 'string'
 }
 
+export const getLanguages = async (): Promise<string[]> =>
+  fetch(`${BASE_URL}/meta/lang`).then((res) => res.json())
+
 export const getPatients = async (): Promise<Patient[]> =>
   fetch(`${BASE_URL}/patients`).then((res) => res.json())
 

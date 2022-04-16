@@ -10,7 +10,7 @@ import {
   RadioGroup,
   TextField,
 } from '@mui/material'
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { useQuery } from 'react-query'
 import { getLanguages } from '../../lib/api'
 
@@ -19,7 +19,10 @@ function PatientInformationStep() {
     initialData: [],
   })
 
-  function handleSubmit() {}
+  function handleSubmit(e: SyntheticEvent) {
+    e.preventDefault()
+    console.log('allah')
+  }
 
   return (
     <>
@@ -66,8 +69,8 @@ function PatientInformationStep() {
             )}
           />
           <TextField label="Medical Procedure " variant="standard" />
+          <Button type="submit"> hi</Button>
         </FormControl>
-        <Button type="submit"> hi</Button>
       </DialogContent>
     </>
   )

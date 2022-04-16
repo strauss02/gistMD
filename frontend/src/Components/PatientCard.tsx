@@ -1,15 +1,6 @@
-import {
-  Avatar,
-  Button,
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from '@mui/material'
+import { Avatar, Box, Card, CardContent, Typography } from '@mui/material'
 import MaleIcon from '@mui/icons-material/Male'
 import FemaleIcon from '@mui/icons-material/Female'
-import React from 'react'
 import { Patient } from '../lib/api'
 
 type PatientCardProps = {

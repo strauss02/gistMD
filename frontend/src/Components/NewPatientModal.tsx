@@ -1,21 +1,6 @@
-import { useTheme } from '@emotion/react'
-import { ReactJSXElementChildrenAttribute } from '@emotion/react/types/jsx-namespace'
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material'
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  MobileStepper,
-  Typography,
-  useMediaQuery,
-} from '@mui/material'
+import { Box, Button, Dialog, MobileStepper } from '@mui/material'
 import React from 'react'
-import { useQuery } from 'react-query'
-import { getLanguages } from '../lib/api'
 
 type Props = {
   isModalOpen: boolean
@@ -23,9 +8,10 @@ type Props = {
   children: React.ReactNode
 }
 
-function NewPatientModule(props: Props) {
+function NewPatientModal(props: Props) {
   // const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const [activeStep, setActiveStep] = React.useState(0)
+  const [formData, setFormData] = React.useState({})
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1)
@@ -76,4 +62,4 @@ function NewPatientModule(props: Props) {
   )
 }
 
-export default NewPatientModule
+export default NewPatientModal

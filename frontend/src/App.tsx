@@ -11,6 +11,9 @@ import PatientPictureStep from './Components/FormSteps/PatientPictureStep'
 
 const queryClient = new QueryClient()
 
+// Allow all steps under NewPatientModal share the form data
+const FormContext = React.createContext({})
+
 function PatientApp() {
   const [isModalOpen, setModalOpen] = useState(false)
 
@@ -18,8 +21,10 @@ function PatientApp() {
     <>
       <NewPatientButton setModalOpen={setModalOpen} />
       <NewPatientModal isModalOpen={isModalOpen} setModalOpen={setModalOpen}>
-        <PatientInformationStep />
-        <PatientPictureStep />
+        <FormContext.Provider value={{}}>
+          <PatientInformationStep />
+          <PatientPictureStep />
+        </FormContext.Provider>
       </NewPatientModal>
       <Container>
         <Grid container>

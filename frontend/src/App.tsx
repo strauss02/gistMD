@@ -5,7 +5,9 @@ import SideNavigation from './Components/SideNavigation'
 
 import { QueryClientProvider, QueryClient } from 'react-query'
 import NewPatientButton from './Components/NewPatientButton'
-import NewPatientModule from './Components/NewPatientModal'
+import NewPatientModal from './Components/NewPatientModal'
+import PatientInformationStep from './Components/FormSteps/PatientInformationStep'
+import PatientPictureStep from './Components/FormSteps/PatientPictureStep'
 
 const queryClient = new QueryClient()
 
@@ -15,7 +17,10 @@ function PatientApp() {
   return (
     <>
       <NewPatientButton setModalOpen={setModalOpen} />
-      <NewPatientModule isModalOpen={isModalOpen} setModalOpen={setModalOpen} />
+      <NewPatientModal isModalOpen={isModalOpen} setModalOpen={setModalOpen}>
+        <PatientInformationStep />
+        <PatientPictureStep />
+      </NewPatientModal>
       <Container>
         <Grid container>
           <Grid item xs={0} md={2}>

@@ -1,4 +1,5 @@
 import { useTheme } from '@emotion/react'
+import { ReactJSXElementChildrenAttribute } from '@emotion/react/types/jsx-namespace'
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material'
 import {
   Box,
@@ -17,8 +18,10 @@ import React from 'react'
 type Props = {
   isModalOpen: boolean
   setModalOpen: Function
+  children: React.ReactNode
 }
 
+/*
 const steps = [
   {
     label: 'Add patient information',
@@ -39,6 +42,7 @@ const steps = [
               they're running and how to resolve approval issues.`,
   },
 ]
+*/
 
 function NewPatientModule(props: Props) {
   const theme = useTheme()
@@ -56,6 +60,7 @@ function NewPatientModule(props: Props) {
   const handleClose = () => {
     props.setModalOpen(false)
   }
+  const steps = React.Children.toArray(props.children)
   return (
     <Dialog
       // fullScreen={fullScreen}
@@ -63,27 +68,20 @@ function NewPatientModule(props: Props) {
       onClose={handleClose}
       aria-labelledby="responsive-dialog-title"
     >
-      <DialogTitle id="responsive-dialog-title">
-        {steps[activeStep].label}
-      </DialogTitle>
-      <DialogContent>
-        {/*  */}
-        <Box sx={{ height: 255, maxWidth: 400, width: '100%', p: 2 }}>
-          <DialogContentText>{steps[activeStep].description}</DialogContentText>
-        </Box>
-
-        {/*  */}
-      </DialogContent>
+      <Box sx={{ minHeight: 255, maxWidth: 400, width: '100%', p: 2 }}>
+        {steps[activeStep]}
+      </Box>
+      {/* TODO : Seperate MobileStepper as component */}
       <MobileStepper
         variant="text"
-        steps={3}
+        steps={steps.length}
         position="static"
         activeStep={activeStep}
         nextButton={
           <Button
             size="small"
             onClick={handleNext}
-            disabled={activeStep === 3 - 1}
+            disabled={activeStep === steps.length - 1}
           >
             Next
             <KeyboardArrowRight />

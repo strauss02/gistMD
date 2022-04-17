@@ -3,7 +3,6 @@ import { Box, Button, Dialog, MobileStepper } from '@mui/material'
 import { useState, ReactNode, createContext, Children, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { Form, getFormTemplate } from '../lib/api'
-import ErrorModal from './ErrorModal'
 import LoadingScreen from './LoadingScreen'
 
 type Props = {
@@ -13,18 +12,34 @@ type Props = {
   children: ReactNode
 }
 
-// TODO: Give form context meaningful data, like setForm and formData.
-export const FormContext = createContext({})
+export type FormContextType = {
+  setFormData: Function
+  formData: Form
+}
+
+// For edge cases where form isn't loaded
+const fallbackForm = {
+  age: 0,
+  gender: '',
+  imgSrc: '',
+  language: '',
+  name: '',
+  procedure: '',
+}
+
+// undefined exists to satisfy the condition where FormContext exists in isolation, virtually not containing any value
+export const FormContext = createContext<FormContextType | undefined>(undefined)
 
 function NewPatientModal(props: Props) {
-  const [formData, setFormData] = useState('')
+  const [formData, setFormData] = useState(fallbackForm as Form)
   const [activeStep, setActiveStep] = useState(0)
 
-  const { isLoading, isError, data, error } = useQuery<any>(
+  const { isLoading, isError, data } = useQuery<any>(
     ['formTemplate'],
     getFormTemplate,
     {}
   )
+  // Once formTemplate has loaded, assign it to formData. This is for the porpuse of having an empty form as an initial value
   useEffect(() => {
     if (data) {
       setFormData(data)

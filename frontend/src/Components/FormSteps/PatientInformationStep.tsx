@@ -10,20 +10,39 @@ import {
   RadioGroup,
   TextField,
 } from '@mui/material'
-import React, { SyntheticEvent, useContext } from 'react'
+import React, { BaseSyntheticEvent, SyntheticEvent, useContext } from 'react'
 import { useQuery } from 'react-query'
-import { getLanguages } from '../../lib/api'
-import { FormContext } from '../NewPatientModal'
+import { Form, getLanguages } from '../../lib/api'
+import { FormContext, FormContextType } from '../NewPatientModal'
 
 function PatientInformationStep() {
-  const formData = useContext(FormContext)
+  // This hook handles edge cases where this component is rendered without a value from its context provider.
+  const useFormContext = () => {
+    const formContext = useContext(FormContext)
+    if (!formContext)
+      throw new Error('No FormContext.Provider found when calling formContext.')
+    return formContext
+  }
+
+  const { formData, setFormData } = useFormContext()
 
   const { data: languages } = useQuery<string[]>(['languages'], getLanguages, {
     initialData: [],
   })
 
-  function handleSubmit(e: SyntheticEvent) {
+  function handleSubmit(e: BaseSyntheticEvent) {
     e.preventDefault()
+    console.log(e.target)
+  }
+
+  function handleChange(e: BaseSyntheticEvent) {
+    console.log(e)
+    setFormData((prevData: any) => {
+      const prevStateDup = { ...prevData }
+      prevStateDup[e.target.name] = e.target.value
+      return prevStateDup
+    })
+    console.log(formData)
   }
 
   return (
@@ -31,50 +50,56 @@ function PatientInformationStep() {
       <DialogTitle>New patient information</DialogTitle>
       <DialogContent>
         <FormControl
+          onChange={handleChange}
           component={'form'}
           onSubmit={handleSubmit}
           sx={{ width: '100%' }}
         >
-          <TextField label="Full name" variant="standard" />
+          <TextField label="Full name" variant="standard" name="name" />
           <TextField
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: 0 }}
             type="number"
             label="Age"
             variant="standard"
+            name="age"
           />
           {/* TODO: Seperate RadioGroup into a different component */}
           <Box>
             <RadioGroup
               sx={{ flexDirection: 'row', width: '100%' }}
               aria-labelledby="radio-buttons-group-label"
-              defaultValue="female"
-              name="radio-buttons-group"
+              name="gender"
             >
               <FormControlLabel
-                value="female"
+                value="Female"
                 control={<Radio />}
                 label="Female"
               />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
+              <FormControlLabel value="Male" control={<Radio />} label="Male" />
             </RadioGroup>
           </Box>
           <Autocomplete
+            // Changing the value in Autocomplete by clicking a list option does NOT trigger the parent form's 'onChange'. Its value would be recorded on submission.
             id="combo-box-demo"
             options={languages || []}
             // sx={{ width: '100%' }}
             renderInput={(params) => (
               <TextField
+                name="language"
                 {...params}
                 label="Spoken langauge"
                 variant="standard"
               />
             )}
           />
-          <TextField label="Medical Procedure " variant="standard" />
-          <Button type="submit"> hi</Button>
+          <TextField
+            label="Medical Procedure "
+            variant="standard"
+            name="procedure"
+          />
         </FormControl>
+        <Button onClick={() => console.log(formData)}>hey</Button>
       </DialogContent>
-      {console.log(formData)}
     </>
   )
 }

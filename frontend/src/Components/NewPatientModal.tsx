@@ -7,11 +7,9 @@ import {
   Children,
   useEffect,
   createRef,
-  Ref,
   RefObject,
 } from 'react'
-import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query'
-import { queryClient } from '../App'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { Form, getFormTemplate, createPatient } from '../lib/api'
 import LoadingScreen from './LoadingScreen'
 
@@ -28,6 +26,7 @@ export type FormContextType = {
   formData: Form
   setLoadingScreenOpen: any
   autocompleteRef: RefObject<HTMLElement> | RefObject<unknown>
+  setFormValid: Function
 }
 
 // For edge cases where form isn't loaded
@@ -46,6 +45,7 @@ export const FormContext = createContext<FormContextType | undefined>(undefined)
 function NewPatientModal(props: Props) {
   const [formData, setFormData] = useState(fallbackForm as Form)
   const [activeStep, setActiveStep] = useState(0)
+  const [isFormValid, setFormValid] = useState(false)
 
   const queryClient = useQueryClient()
 
@@ -117,7 +117,13 @@ function NewPatientModal(props: Props) {
   return (
     //This context will be avaliable to all steps inside the modal
     <FormContext.Provider
-      value={{ setFormData, formData, autocompleteRef, setLoadingScreenOpen }}
+      value={{
+        setFormData,
+        formData,
+        autocompleteRef,
+        setLoadingScreenOpen,
+        setFormValid,
+      }}
     >
       <Dialog
         // fullScreen={fullScreen}
@@ -135,7 +141,7 @@ function NewPatientModal(props: Props) {
           position="static"
           activeStep={activeStep}
           nextButton={
-            <Button size="small" onClick={handleNext}>
+            <Button size="small" onClick={handleNext} disabled={!isFormValid}>
               {activeStep === steps.length - 1 ? 'Submit ' : 'Next'}
               <KeyboardArrowRight />
             </Button>

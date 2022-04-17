@@ -8,12 +8,12 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Typography,
 } from '@mui/material'
-import { BaseSyntheticEvent, RefObject, useContext, useRef } from 'react'
+import { BaseSyntheticEvent, useContext } from 'react'
 import { useQuery } from 'react-query'
 import { getLanguages } from '../../lib/api'
 import { FormContext } from '../NewPatientModal'
+import validator from './validator'
 
 // This hook handles edge cases where this component is rendered without a value from its context provider.
 export const useFormContext = () => {
@@ -24,7 +24,8 @@ export const useFormContext = () => {
 }
 
 function PatientInformationStep() {
-  const { formData, setFormData, autocompleteRef } = useFormContext()
+  const { formData, setFormData, autocompleteRef, setFormValid } =
+    useFormContext()
 
   const { data: languages } = useQuery<string[]>(['languages'], getLanguages, {
     initialData: [],
@@ -40,9 +41,10 @@ function PatientInformationStep() {
     setFormData((prevData: any) => {
       const prevStateDup = { ...prevData }
       prevStateDup[e.target.name] = e.target.value
+      console.log(autocompleteRef)
+      setFormValid(validator(prevStateDup, autocompleteRef))
       return prevStateDup
     })
-    console.log(formData)
   }
 
   return (
@@ -92,6 +94,7 @@ function PatientInformationStep() {
             // sx={{ width: '100%' }}
             renderInput={(params) => (
               <TextField
+                onSelect={handleChange}
                 inputRef={autocompleteRef}
                 name="language"
                 {...params}

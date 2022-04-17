@@ -7,7 +7,7 @@ import NewPatientButton from './Components/NewPatientButton'
 import NewPatientModal from './Components/NewPatientModal'
 import PatientInformationStep from './Components/FormSteps/PatientInformationStep'
 import PatientPictureStep from './Components/FormSteps/PatientPictureStep'
-import ErrorModal from './Components/ErrorModal'
+import AlertModal from './Components/AlertModal'
 import ReviewInformationStep from './Components/FormSteps/ReviewInformationStep'
 import LoadingScreen from './Components/LoadingScreen'
 
@@ -17,20 +17,20 @@ export const queryClient = new QueryClient()
 
 function PatientApp() {
   const [isModalOpen, setModalOpen] = useState(false)
-  const [isErrorModalOpen, setErrorModalOpen] = useState(false)
+  const [isAlertModalOpen, setAlertModalOpen] = useState(false)
   const [isLoadingScreenOpen, setLoadingScreenOpen] = useState(false)
 
   return (
     <>
       <LoadingScreen open={isLoadingScreenOpen} />
       <NewPatientButton setModalOpen={setModalOpen} />
-      <ErrorModal
-        isErrorModalOpen={isErrorModalOpen}
-        setErrorModalOpen={setErrorModalOpen}
+      <AlertModal
+        isAlertModalOpen={isAlertModalOpen}
+        setAlertModalOpen={setAlertModalOpen}
       />
       <NewPatientModal
         isModalOpen={isModalOpen}
-        setErrorModalOpen={setErrorModalOpen}
+        setAlertModalOpen={setAlertModalOpen}
         setModalOpen={setModalOpen}
         setLoadingScreenOpen={setLoadingScreenOpen}
       >

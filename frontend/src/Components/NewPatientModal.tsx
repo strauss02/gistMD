@@ -16,7 +16,7 @@ import LoadingScreen from './LoadingScreen'
 type Props = {
   isModalOpen: boolean
   setModalOpen: Function
-  setErrorModalOpen: Function
+  setAlertModalOpen: Function
   setLoadingScreenOpen: Function
   children: ReactNode
 }
@@ -93,6 +93,7 @@ function NewPatientModal(props: Props) {
       props.setModalOpen(false)
       setLoadingScreenOpen(false)
       setActiveStep(0)
+      props.setAlertModalOpen(true)
     },
   })
 
@@ -110,7 +111,7 @@ function NewPatientModal(props: Props) {
   }
 
   if (isError) {
-    return props.setErrorModalOpen(true)
+    return props.setAlertModalOpen(true)
   }
 
   const { setLoadingScreenOpen } = props

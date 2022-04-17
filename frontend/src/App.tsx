@@ -40,9 +40,11 @@ function PatientApp() {
       </NewPatientModal>
       <Container>
         <Grid container>
-          <Grid item xs={12} md={10}>
+          <Grid item xs={0} lg={2} />
+          <Grid item xs={12} lg={8}>
             <PatientList />
           </Grid>
+          <Grid item xs={0} lg={2} />
         </Grid>
       </Container>
     </>

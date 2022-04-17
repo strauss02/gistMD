@@ -94,6 +94,7 @@ function NewPatientModal(props: Props) {
       setLoadingScreenOpen(false)
       setActiveStep(0)
       props.setAlertModalOpen(true)
+      setFormData(formTemplate)
     },
   })
 

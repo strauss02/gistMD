@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
 
 type Props = {
   isAlertModalOpen: boolean

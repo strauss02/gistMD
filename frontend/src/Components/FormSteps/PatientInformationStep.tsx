@@ -13,7 +13,7 @@ import { BaseSyntheticEvent, useContext } from 'react'
 import { useQuery } from 'react-query'
 import { getLanguages } from '../../lib/api'
 import { FormContext } from '../NewPatientModal'
-import validator from './validator'
+import validator from '../../validator'
 
 // This hook handles edge cases where this component is rendered without a value from its context provider.
 export const useFormContext = () => {

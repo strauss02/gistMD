@@ -1,17 +1,16 @@
 import {
   Avatar,
-  Button,
   DialogContent,
   DialogContentText,
   DialogTitle,
   TextField,
 } from '@mui/material'
 import { Box } from '@mui/system'
-import React, { BaseSyntheticEvent, SyntheticEvent } from 'react'
+import { BaseSyntheticEvent } from 'react'
 import { useFormContext } from './PatientInformationStep'
 
 function PatientPictureStep() {
-  const { formData, setFormData, autocompleteRef } = useFormContext()
+  const { formData, setFormData } = useFormContext()
 
   function handleChange(e: BaseSyntheticEvent) {
     setFormData((prevData: any) => {

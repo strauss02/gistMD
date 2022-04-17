@@ -1,18 +1,10 @@
-import React from 'react'
-import {
-  Avatar,
-  Button,
-  DialogContent,
-  DialogTitle,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Avatar, DialogContent, DialogTitle, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useFormContext } from './PatientInformationStep'
 import MaleIcon from '@mui/icons-material/Male'
 import FemaleIcon from '@mui/icons-material/Female'
 function ReviewInformationStep() {
-  const { formData, setFormData, autocompleteRef } = useFormContext()
+  const { formData } = useFormContext()
 
   return (
     <>

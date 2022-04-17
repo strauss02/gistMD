@@ -90,8 +90,9 @@ function NewPatientModal(props: Props) {
       setFormData(formTemplate as Form)
     },
     onSettled: () => {
-      // close loading screen
+      props.setModalOpen(false)
       setLoadingScreenOpen(false)
+      setActiveStep(0)
     },
   })
 

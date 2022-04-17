@@ -9,17 +9,20 @@ import PatientInformationStep from './Components/FormSteps/PatientInformationSte
 import PatientPictureStep from './Components/FormSteps/PatientPictureStep'
 import ErrorModal from './Components/ErrorModal'
 import ReviewInformationStep from './Components/FormSteps/ReviewInformationStep'
+import LoadingScreen from './Components/LoadingScreen'
 
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
 
 // Allow all steps under NewPatientModal share the form data
 
 function PatientApp() {
   const [isModalOpen, setModalOpen] = useState(false)
   const [isErrorModalOpen, setErrorModalOpen] = useState(false)
+  const [isLoadingScreenOpen, setLoadingScreenOpen] = useState(false)
 
   return (
     <>
+      <LoadingScreen open={isLoadingScreenOpen} />
       <NewPatientButton setModalOpen={setModalOpen} />
       <ErrorModal
         isErrorModalOpen={isErrorModalOpen}
@@ -29,6 +32,7 @@ function PatientApp() {
         isModalOpen={isModalOpen}
         setErrorModalOpen={setErrorModalOpen}
         setModalOpen={setModalOpen}
+        setLoadingScreenOpen={setLoadingScreenOpen}
       >
         <PatientInformationStep />
         <PatientPictureStep />

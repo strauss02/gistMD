@@ -24,15 +24,13 @@ export const getPatients = async (): Promise<Patient[]> =>
 export const getPatient = async (id: number): Promise<Patient> =>
   fetch(`${BASE_URL}/patients/${id}`).then((res) => res.json())
 
-export const createPatient = async (patient: Patient): Promise<Patient> =>
+export const createPatient = async (patient: Form): Promise<Patient> =>
   fetch(`${BASE_URL}/patients`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      patient,
-    }),
+    body: JSON.stringify(patient),
   }).then((res) => res.json())
 
 export const updatePatient = async (

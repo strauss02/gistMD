@@ -10,20 +10,23 @@ import {
   Ref,
   RefObject,
 } from 'react'
-import { useQuery } from 'react-query'
-import { Form, getFormTemplate } from '../lib/api'
+import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query'
+import { queryClient } from '../App'
+import { Form, getFormTemplate, createPatient } from '../lib/api'
 import LoadingScreen from './LoadingScreen'
 
 type Props = {
   isModalOpen: boolean
   setModalOpen: Function
   setErrorModalOpen: Function
+  setLoadingScreenOpen: Function
   children: ReactNode
 }
 
 export type FormContextType = {
   setFormData: Function
   formData: Form
+  setLoadingScreenOpen: any
   autocompleteRef: RefObject<HTMLElement> | RefObject<unknown>
 }
 
@@ -44,19 +47,21 @@ function NewPatientModal(props: Props) {
   const [formData, setFormData] = useState(fallbackForm as Form)
   const [activeStep, setActiveStep] = useState(0)
 
+  const queryClient = useQueryClient()
+
   const autocompleteRef = createRef() as any
 
-  const { isLoading, isError, data } = useQuery<any>(
-    ['formTemplate'],
-    getFormTemplate,
-    {}
-  )
+  const {
+    isLoading,
+    isError,
+    data: formTemplate,
+  } = useQuery<any>(['formTemplate'], getFormTemplate, {})
   // Once formTemplate has loaded, assign it to formData. This is for the porpuse of having an empty form as an initial value
   useEffect(() => {
-    if (data) {
-      setFormData(data)
+    if (formTemplate) {
+      setFormData(formTemplate)
     }
-  }, [data])
+  }, [formTemplate])
 
   const handleNext = () => {
     // Clicking 'next' while on Patient Information step will also set the language field in the form
@@ -67,8 +72,28 @@ function NewPatientModal(props: Props) {
         return prevDataDup
       })
     }
+    if (activeStep === steps.length - 1) {
+      // show loading screen
+      setLoadingScreenOpen(true)
+      //send form
+      createMutation.mutate(formData)
+
+      return
+    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1)
   }
+
+  const createMutation = useMutation(createPatient, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['patients'])
+      // reset form
+      setFormData(formTemplate as Form)
+    },
+    onSettled: () => {
+      // close loading screen
+      setLoadingScreenOpen(false)
+    },
+  })
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
@@ -80,16 +105,20 @@ function NewPatientModal(props: Props) {
   const steps = Children.toArray(props.children)
 
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen open={true} />
   }
 
   if (isError) {
     return props.setErrorModalOpen(true)
   }
 
+  const { setLoadingScreenOpen } = props
+
   return (
     //This context will be avaliable to all steps inside the modal
-    <FormContext.Provider value={{ setFormData, formData, autocompleteRef }}>
+    <FormContext.Provider
+      value={{ setFormData, formData, autocompleteRef, setLoadingScreenOpen }}
+    >
       <Dialog
         // fullScreen={fullScreen}
         open={props.isModalOpen}
@@ -106,12 +135,8 @@ function NewPatientModal(props: Props) {
           position="static"
           activeStep={activeStep}
           nextButton={
-            <Button
-              size="small"
-              onClick={handleNext}
-              disabled={activeStep === steps.length - 1}
-            >
-              Next
+            <Button size="small" onClick={handleNext}>
+              {activeStep === steps.length - 1 ? 'Submit ' : 'Next'}
               <KeyboardArrowRight />
             </Button>
           }

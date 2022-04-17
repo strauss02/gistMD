@@ -8,9 +8,13 @@ const style = {
   width: 'fit-content',
 }
 
-function LoadingScreen() {
+type Props = {
+  open: boolean
+}
+
+function LoadingScreen(props: Props) {
   return (
-    <Modal open>
+    <Modal open={props.open}>
       <Container sx={style}>
         <CircularProgress size={'5rem'} />
       </Container>

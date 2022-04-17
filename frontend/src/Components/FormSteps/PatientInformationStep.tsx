@@ -8,6 +8,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
+  Typography,
 } from '@mui/material'
 import { BaseSyntheticEvent, RefObject, useContext, useRef } from 'react'
 import { useQuery } from 'react-query'
@@ -71,7 +72,7 @@ function PatientInformationStep() {
           {/* TODO: Seperate RadioGroup into a different component */}
           <Box>
             <RadioGroup
-              sx={{ flexDirection: 'row', width: '100%' }}
+              sx={{ flexDirection: 'row', width: '100%', marginTop: '2rem' }}
               aria-labelledby="radio-buttons-group-label"
               name="gender"
               value={formData.gender}

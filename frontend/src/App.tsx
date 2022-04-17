@@ -8,6 +8,7 @@ import NewPatientModal from './Components/NewPatientModal'
 import PatientInformationStep from './Components/FormSteps/PatientInformationStep'
 import PatientPictureStep from './Components/FormSteps/PatientPictureStep'
 import ErrorModal from './Components/ErrorModal'
+import ReviewInformationStep from './Components/FormSteps/ReviewInformationStep'
 
 const queryClient = new QueryClient()
 
@@ -31,6 +32,7 @@ function PatientApp() {
       >
         <PatientInformationStep />
         <PatientPictureStep />
+        <ReviewInformationStep />
       </NewPatientModal>
       <Container>
         <Grid container>

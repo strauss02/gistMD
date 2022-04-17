@@ -1,6 +1,15 @@
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material'
 import { Box, Button, Dialog, MobileStepper } from '@mui/material'
-import { useState, ReactNode, createContext, Children, useEffect } from 'react'
+import {
+  useState,
+  ReactNode,
+  createContext,
+  Children,
+  useEffect,
+  createRef,
+  Ref,
+  RefObject,
+} from 'react'
 import { useQuery } from 'react-query'
 import { Form, getFormTemplate } from '../lib/api'
 import LoadingScreen from './LoadingScreen'
@@ -15,6 +24,7 @@ type Props = {
 export type FormContextType = {
   setFormData: Function
   formData: Form
+  autocompleteRef: RefObject<HTMLElement> | RefObject<unknown>
 }
 
 // For edge cases where form isn't loaded
@@ -34,6 +44,8 @@ function NewPatientModal(props: Props) {
   const [formData, setFormData] = useState(fallbackForm as Form)
   const [activeStep, setActiveStep] = useState(0)
 
+  const autocompleteRef = createRef() as any
+
   const { isLoading, isError, data } = useQuery<any>(
     ['formTemplate'],
     getFormTemplate,
@@ -47,6 +59,14 @@ function NewPatientModal(props: Props) {
   }, [data])
 
   const handleNext = () => {
+    // Clicking 'next' while on Patient Information step will also set the language field in the form
+    if (activeStep === 0) {
+      setFormData((prevData) => {
+        const prevDataDup = { ...prevData }
+        prevDataDup['language'] = autocompleteRef.current.value
+        return prevDataDup
+      })
+    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1)
   }
 
@@ -69,7 +89,7 @@ function NewPatientModal(props: Props) {
 
   return (
     //This context will be avaliable to all steps inside the modal
-    <FormContext.Provider value={{ setFormData, formData }}>
+    <FormContext.Provider value={{ setFormData, formData, autocompleteRef }}>
       <Dialog
         // fullScreen={fullScreen}
         open={props.isModalOpen}

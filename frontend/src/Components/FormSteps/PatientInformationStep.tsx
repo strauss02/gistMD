@@ -10,18 +10,20 @@ import {
   RadioGroup,
   TextField,
 } from '@mui/material'
-import React, { SyntheticEvent } from 'react'
+import React, { SyntheticEvent, useContext } from 'react'
 import { useQuery } from 'react-query'
 import { getLanguages } from '../../lib/api'
+import { FormContext } from '../NewPatientModal'
 
 function PatientInformationStep() {
+  const formData = useContext(FormContext)
+
   const { data: languages } = useQuery<string[]>(['languages'], getLanguages, {
     initialData: [],
   })
 
   function handleSubmit(e: SyntheticEvent) {
     e.preventDefault()
-    console.log('allah')
   }
 
   return (
@@ -72,6 +74,7 @@ function PatientInformationStep() {
           <Button type="submit"> hi</Button>
         </FormControl>
       </DialogContent>
+      {console.log(formData)}
     </>
   )
 }

@@ -15,6 +15,8 @@ function PatientList() {
         flexDirection: 'column',
         flexWrap: 'wrap',
         width: '100%',
+        marginTop: '-2rem',
+        marginBottom: '2rem',
       }}
     >
       {patients &&

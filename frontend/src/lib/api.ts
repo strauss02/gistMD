@@ -10,8 +10,13 @@ export interface Patient {
   _id: 'string'
 }
 
+export type Form = Omit<Patient, '_id'>
+
 export const getLanguages = async (): Promise<string[]> =>
   fetch(`${BASE_URL}/meta/lang`).then((res) => res.json())
+
+export const getFormTemplate = async (): Promise<Form> =>
+  fetch(`${BASE_URL}/meta/form-template`).then((res) => res.json())
 
 export const getPatients = async (): Promise<Patient[]> =>
   fetch(`${BASE_URL}/patients`).then((res) => res.json())

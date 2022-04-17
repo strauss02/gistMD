@@ -184,3 +184,12 @@ export const LANGUAGES = [
   'Zhuang, Chuang',
   'Zulu',
 ]
+
+export const FORM_TEMPLATE = {
+  name: '',
+  age: '',
+  gender: '',
+  procedure: '',
+  language: '',
+  imgSrc: '',
+}

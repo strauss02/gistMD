@@ -9,14 +9,11 @@ import {
   RadioGroup,
   TextField,
 } from '@mui/material'
-import { BaseSyntheticEvent } from 'react'
+import { BaseSyntheticEvent, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { getLanguages } from '../../lib/api'
 import validator from '../../validator'
 import { useFormContext } from '../../hooks/useFormContext'
-
-// This hook handles edge cases where this component is rendered without a value from its context provider.
-// Bound to happen only where it is tested in isolation, not in production env.
 
 function PatientInformationStep() {
   const { formData, setFormData, autocompleteRef, setFormValid } =
@@ -26,15 +23,15 @@ function PatientInformationStep() {
     initialData: [],
   })
 
-  function handleSubmit(e: BaseSyntheticEvent) {
-    e.preventDefault()
-  }
+  // Check validity of form on every change
+  useEffect(() => {
+    setFormValid(validator(formData, autocompleteRef))
+  }, [formData, autocompleteRef, setFormValid])
 
   function handleChange(e: BaseSyntheticEvent) {
     setFormData((prevData: any) => {
       const prevStateDup = { ...prevData }
       prevStateDup[e.target.name] = e.target.value
-      setFormValid(validator(prevStateDup, autocompleteRef))
       return prevStateDup
     })
   }
@@ -46,7 +43,6 @@ function PatientInformationStep() {
         <FormControl
           onChange={handleChange}
           component={'form'}
-          onSubmit={handleSubmit}
           sx={{ width: '100%' }}
         >
           <TextField

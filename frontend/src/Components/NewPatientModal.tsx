@@ -14,6 +14,7 @@ import { Form, getFormTemplate, createPatient } from '../lib/api'
 import LoadingScreen from './LoadingScreen'
 
 type Props = {
+  setAlertModalText: Function
   isModalOpen: boolean
   setModalOpen: Function
   setAlertModalOpen: Function
@@ -49,6 +50,7 @@ function NewPatientModal(props: Props) {
 
   const queryClient = useQueryClient()
 
+  // We pass a ref to the Autocomplete component because
   const autocompleteRef = createRef() as any
 
   const {
@@ -86,15 +88,18 @@ function NewPatientModal(props: Props) {
   const createMutation = useMutation(createPatient, {
     onSuccess: () => {
       queryClient.invalidateQueries(['patients'])
+      setLoadingScreenOpen(false)
+      props.setAlertModalOpen(true)
+      props.setModalOpen(false)
       // reset form
       setFormData(formTemplate as Form)
-    },
-    onSettled: () => {
-      props.setModalOpen(false)
-      setLoadingScreenOpen(false)
       setActiveStep(0)
+    },
+
+    onError: (err) => {
       props.setAlertModalOpen(true)
-      setFormData(formTemplate)
+      props.setAlertModalText('An error occured!', err)
+      props.setLoadingScreenOpen(false)
     },
   })
 
@@ -129,7 +134,6 @@ function NewPatientModal(props: Props) {
       }}
     >
       <Dialog
-        // fullScreen={fullScreen}
         open={props.isModalOpen}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"

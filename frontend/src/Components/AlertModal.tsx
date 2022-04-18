@@ -1,9 +1,9 @@
 import { Dialog, DialogContent, Typography } from '@mui/material'
-import React from 'react'
 
 type Props = {
   isAlertModalOpen: boolean
   setAlertModalOpen: Function
+  text?: string
 }
 
 function AlertModal(props: Props) {
@@ -15,7 +15,7 @@ function AlertModal(props: Props) {
     <div>
       <Dialog open={props.isAlertModalOpen} onClose={handleClose}>
         <DialogContent>
-          <Typography>Patient added successfully!</Typography>
+          <Typography>{props.text || `Patient added successfully!`}</Typography>
         </DialogContent>
       </Dialog>
     </div>

@@ -1,7 +1,6 @@
 import { Container, Grid } from '@mui/material'
 import React, { useState } from 'react'
 import PatientList from './Components/PatientList'
-
 import { QueryClientProvider, QueryClient } from 'react-query'
 import NewPatientButton from './Components/NewPatientButton'
 import NewPatientModal from './Components/NewPatientModal'
@@ -13,22 +12,23 @@ import LoadingScreen from './Components/LoadingScreen'
 
 export const queryClient = new QueryClient()
 
-// Allow all steps under NewPatientModal share the form data
-
 function PatientApp() {
   const [isModalOpen, setModalOpen] = useState(false)
   const [isAlertModalOpen, setAlertModalOpen] = useState(false)
   const [isLoadingScreenOpen, setLoadingScreenOpen] = useState(false)
+  const [alertModalText, setAlertModalText] = useState('')
 
   return (
     <>
       <LoadingScreen open={isLoadingScreenOpen} />
       <NewPatientButton setModalOpen={setModalOpen} />
       <AlertModal
+        text={alertModalText}
         isAlertModalOpen={isAlertModalOpen}
         setAlertModalOpen={setAlertModalOpen}
       />
       <NewPatientModal
+        setAlertModalText={setAlertModalText}
         isModalOpen={isModalOpen}
         setAlertModalOpen={setAlertModalOpen}
         setModalOpen={setModalOpen}

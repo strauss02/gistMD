@@ -31,7 +31,18 @@ export const createPatient = async (patient: Form): Promise<Patient> =>
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(patient),
-  }).then((res) => res.json())
+  })
+    .then((res) => {
+      if (!res.ok) {
+        return res.text().then((text) => {
+          throw Error(text)
+        })
+      }
+      return res.json()
+    })
+    .catch((err) => {
+      throw Error(err)
+    })
 
 export const updatePatient = async (
   patient: Patient,

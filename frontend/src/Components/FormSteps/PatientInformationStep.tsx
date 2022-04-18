@@ -59,7 +59,6 @@ function PatientInformationStep() {
             variant="standard"
             name="age"
           />
-          {/* TODO: Seperate RadioGroup into a different component */}
           <Box>
             <RadioGroup
               sx={{ flexDirection: 'row', width: '100%', marginTop: '2rem' }}
@@ -77,9 +76,7 @@ function PatientInformationStep() {
           </Box>
           <Autocomplete
             // Changing the value in Autocomplete by clicking a list option does NOT trigger the parent form's 'onChange'. Its value would be recorded on submission to prevent buggy behaviour.
-            id="combo-box-demo"
             options={languages || []}
-            // sx={{ width: '100%' }}
             renderInput={(params) => (
               <TextField
                 onSelect={handleChange}
@@ -93,7 +90,7 @@ function PatientInformationStep() {
           />
           <TextField
             value={formData.procedure}
-            label="Medical Procedure "
+            label="Medical Procedure"
             variant="standard"
             name="procedure"
           />

@@ -1,7 +1,7 @@
 import { Avatar, DialogContent, DialogTitle, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import { useFormContext } from './PatientInformationStep'
 import MaleIcon from '@mui/icons-material/Male'
+import { useFormContext } from '../../hooks/useFormContext'
 import FemaleIcon from '@mui/icons-material/Female'
 function ReviewInformationStep() {
   const { formData } = useFormContext()

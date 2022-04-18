@@ -9,19 +9,14 @@ import {
   RadioGroup,
   TextField,
 } from '@mui/material'
-import { BaseSyntheticEvent, useContext } from 'react'
+import { BaseSyntheticEvent } from 'react'
 import { useQuery } from 'react-query'
 import { getLanguages } from '../../lib/api'
-import { FormContext } from '../NewPatientModal'
 import validator from '../../validator'
+import { useFormContext } from '../../hooks/useFormContext'
 
 // This hook handles edge cases where this component is rendered without a value from its context provider.
-export const useFormContext = () => {
-  const formContext = useContext(FormContext)
-  if (!formContext)
-    throw new Error('No FormContext.Provider found when calling formContext.')
-  return formContext
-}
+// Bound to happen only where it is tested in isolation, not in production env.
 
 function PatientInformationStep() {
   const { formData, setFormData, autocompleteRef, setFormValid } =
@@ -33,15 +28,12 @@ function PatientInformationStep() {
 
   function handleSubmit(e: BaseSyntheticEvent) {
     e.preventDefault()
-    console.log(e.target)
   }
 
   function handleChange(e: BaseSyntheticEvent) {
-    console.log(e)
     setFormData((prevData: any) => {
       const prevStateDup = { ...prevData }
       prevStateDup[e.target.name] = e.target.value
-      console.log(autocompleteRef)
       setFormValid(validator(prevStateDup, autocompleteRef))
       return prevStateDup
     })

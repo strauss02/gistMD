@@ -7,7 +7,7 @@ import {
 } from '@mui/material'
 import { Box } from '@mui/system'
 import { BaseSyntheticEvent } from 'react'
-import { useFormContext } from './PatientInformationStep'
+import { useFormContext } from '../../hooks/useFormContext'
 
 function PatientPictureStep() {
   const { formData, setFormData } = useFormContext()
